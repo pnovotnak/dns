@@ -16,6 +16,9 @@ steps:
       - make all-containers
       - bash ./build/build.sh
     when:
+      branch:
+        - reddit
+        - master
       event:
         - push
 

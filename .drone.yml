@@ -15,6 +15,9 @@ steps:
       - make test
       - make all-containers
       - bash ./build/build.sh
+    when:
+      event:
+        - push
 
 #kind: pipeline
 #type: docker

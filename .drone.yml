@@ -1,0 +1,150 @@
+---
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: build
+    pull: if-not-exists
+    image: golang:1.13
+    commands:
+      - make build
+      - make test
+      - make all-containers
+      - bash ./build/build.sh
+
+#kind: pipeline
+#type: docker
+#name: default
+#  docker run --rm --sig-proxy=true -u 501:20 \
+#  -v /Users/peter.novotnak/go/src/k8s.io/dns/.go:/go
+#  -v /Users/peter.novotnak/go/src/k8s.io/dns:/go/src/k8s.io/dns \
+#  -v /Users/peter.novotnak/go/src/k8s.io/dns/bin/amd64:/go/bin/linux_amd64 \
+#  -v /Users/peter.novotnak/go/src/k8s.io/dns/.go/std/amd64:/usr/local/go/pkg/linux_amd64_static \
+#  -w /go/src/k8s.io/dns golang:1.11-alpine \
+#  /bin/sh -c ARCH=amd64 VERSION=1.15.9-1-g48eec84-dirty PKG=k8s.io/dns ./build/build.sh
+#
+#docker run                                                            \
+#  --rm                                                               \
+#  --sig-proxy=true                                                   \
+#  -u $(id -u):$(id -g)                                             \
+#  -v $(pwd)/.go:/go                                                 \
+#  -v $(pwd):/go/src/k8s.io/dns                                          \
+#  -v $(pwd)/bin/amd64:/go/bin/linux_amd64                       \
+#  -v $(pwd)/.go/std/amd64:/usr/local/go/pkg/linux_amd64_static  \
+#  -w /go/src/k8s.io/dns                                                  \
+#  golang:1.11-alpine                                                     \
+#  /bin/sh -c "                                                       \
+#  ARCH=amd64                                                   \
+#  VERSION=1.15.9-1-g48eec84-dirty                                             \
+#  PKG=k8s.io/dns                                                     \
+#  ./build/build.sh                                               \
+#
+#  docker pull golang:1.11-alpine
+#  docker run                                                            \
+#  --rm                                                               \
+#  --sig-proxy=true                                                   \
+#  -u $(id -u):$(id -g)                                             \
+#  -v $(pwd)/.go:/go                                                 \
+#  -v $(pwd):/go/src/k8s.io/dns                                          \
+#  -v $(pwd)/bin/amd64:/go/bin/linux_amd64                       \
+#  -v $(pwd)/.go/std/amd64:/usr/local/go/pkg/linux_amd64_static  \
+#  -w /go/src/k8s.io/dns                                                  \
+#  golang:1.11-alpine                                                     \
+#  /bin/sh -c "                                                       \
+#  ARCH=amd64                                                   \
+#  VERSION=1.15.9-1-g48eec84-dirty                                             \
+#  PKG=k8s.io/dns                                                     \
+#  ./build/build.sh                                               \
+#
+#  docker pull golang:1.11-alpine
+#  docker run                                                            \
+#  --rm                                                               \
+#  --sig-proxy=true                                                   \
+#  -u $(id -u):$(id -g)                                             \
+#  -v $(pwd)/.go:/go                                                 \
+#  -v $(pwd):/go/src/k8s.io/dns                                          \
+#  -v $(pwd)/bin/amd64:/go/bin/linux_amd64                       \
+#  -v $(pwd)/.go/std/amd64:/usr/local/go/pkg/linux_amd64_static  \
+#  -w /go/src/k8s.io/dns                                                  \
+#  golang:1.11-alpine                                                     \
+#  /bin/sh -c "                                                       \
+#  ARCH=amd64                                                   \
+#  VERSION=1.15.9-1-g48eec84-dirty                                             \
+#  PKG=k8s.io/dns                                                     \
+#  ./build/build.sh                                               \
+#
+#  docker pull golang:1.11-alpine
+#  docker run                                                            \
+#  --rm                                                               \
+#  --sig-proxy=true                                                   \
+#  -u $(id -u):$(id -g)                                             \
+#  -v $(pwd)/.go:/go                                                 \
+#  -v $(pwd):/go/src/k8s.io/dns                                          \
+#  -v $(pwd)/bin/amd64:/go/bin/linux_amd64                       \
+#  -v $(pwd)/.go/std/amd64:/usr/local/go/pkg/linux_amd64_static  \
+#  -w /go/src/k8s.io/dns                                                  \
+#  golang:1.11-alpine                                                     \
+#  /bin/sh -c "                                                       \
+#  ARCH=amd64                                                   \
+#  VERSION=1.15.9-1-g48eec84-dirty                                             \
+#  PKG=k8s.io/dns                                                     \
+#  ./build/build.sh                                               \
+#
+#
+#  docker pull golang:1.11-alpine
+#  docker run                                                            \
+#  --rm                                                               \
+#  --sig-proxy=true                                                   \
+#  -u $(id -u):$(id -g)                                             \
+#  -v $(pwd)/.go:/go                                                 \
+#  -v $(pwd):/go/src/k8s.io/dns                                          \
+#  -v $(pwd)/bin/amd64:/go/bin/linux_amd64                       \
+#  -v $(pwd)/.go/std/amd64:/usr/local/go/pkg/linux_amd64_static  \
+#  -w /go/src/k8s.io/dns                                                  \
+#  golang:1.11-alpine                                                     \
+#  /bin/sh -c "                                                       \
+#  ARCH=amd64                                                   \
+#  VERSION=1.15.9-1-g48eec84-dirty                                             \
+#  PKG=k8s.io/dns                                                     \
+#  ./build/build.sh                                               \
+#
+#
+#  docker pull golang:1.11-alpine
+#  docker run                                                            \
+#  --rm                                                               \
+#  --sig-proxy=true                                                   \
+#  -u $(id -u):$(id -g)                                             \
+#  -v $(pwd)/.go:/go                                                 \
+#  -v $(pwd):/go/src/k8s.io/dns                                          \
+#  -v $(pwd)/bin/amd64:/go/bin/linux_amd64                       \
+#  -v $(pwd)/.go/std/amd64:/usr/local/go/pkg/linux_amd64_static  \
+#  -w /go/src/k8s.io/dns                                                  \
+#  golang:1.11-alpine                                                     \
+#  /bin/sh -c "                                                       \
+#  ARCH=amd64                                                   \
+#  VERSION=1.15.9-1-g48eec84-dirty                                             \
+#  PKG=k8s.io/dns                                                     \
+#  ./build/build.sh                                               \
+#  "
+#
+#  docker pull golang:1.11-alpine
+#  docker run                                                            \
+#  --rm                                                               \
+#  --sig-proxy=true                                                   \
+#  -u $(id -u):$(id -g)                                             \
+#  -v $(pwd)/.go:/go                                                 \
+#  -v $(pwd):/go/src/k8s.io/dns                                          \
+#  -v $(pwd)/bin/amd64:/go/bin/linux_amd64                       \
+#  -v $(pwd)/.go/std/amd64:/usr/local/go/pkg/linux_amd64_static  \
+#  -w /go/src/k8s.io/dns                                                  \
+#  golang:1.11-alpine                                                     \
+#  /bin/sh -c "                                                       \
+#  ARCH=amd64                                                   \
+#  VERSION=1.15.9-1-g48eec84-dirty                                             \
+#  PKG=k8s.io/dns                                                     \
+#  ./build/build.sh                                               \
+#  "
